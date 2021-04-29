@@ -1,0 +1,78 @@
+.main{
+    width: 100%;
+    height: 700px;
+
+}
+.main .main_center_area{
+    width: 80%;
+    height: 300px;
+    margin: 0 auto;
+}
+    .main_center_area .pettop{
+        margin-top: 40px;
+        text-align: center;
+    }
+        .pettop >h2{
+            color: #000101;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 35px;
+            margin: 0;
+        }
+    .main_center_area .petbutton{
+        width: 100%;
+        height: 300px;
+        margin-top: 50px;
+    }
+        .petbutton li{
+            float: left;
+            padding-left: 240px;
+            text-align: center;
+        }
+    .main_center_area .sale{
+        width: 100%;
+        height: 500px;
+        
+    }
+        .sale .sale_top{
+            text-align: center;
+            margin-top: 40px;
+        }
+        .sale .sale_button{
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+            .sale_left{
+                width: 300px;
+                position: absolute;
+            }
+            .sale_left img{
+                margin-top: 40px;
+                margin-left: 150px;
+            }
+            .sale_right{
+                width: 300px;
+                height: 300px;
+                margin-left: 700px;
+                margin-top: 120px;
+                position: absolute;
+            }
+            .sale_right .context{
+                padding-top: 50px;
+            }
+            .salebtn .salbtn{
+                width: 150px;
+                height: 50px;
+                display: block;
+                background-color: pink;
+                border-radius: 10px;
+                text-align: center;
+                line-height: 50px;
+                margin-top: 50px;
+                font-size: 20px;
+                font-weight: 600;
+            }
+                .salbtn a:hover{
+                    text-decoration: none;
+                }

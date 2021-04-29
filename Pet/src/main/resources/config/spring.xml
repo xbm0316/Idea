@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+<!--    <context:component-scan base-package="test"></context:component-scan>-->
+
+    <!-- 整体思路：
+        1.先整合spring+mybatis
+            a.配置数据源
+            b.配置sqlsession
+        2.再结合mvc
+
+     -->
+
+
+    <!-- 产生动态代理对象 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="basePackage" value="mapper"></property>
+    </bean>
+
+    <!-- 依赖注入 -->
+    <bean id="userService" class="service.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"></property>
+    </bean>
+
+
+
+    <!-- 加载数据库信息文件 -->
+    <bean id="config" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:config/jdbc.properties</value>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 配置数据源信息 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${driver}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="username" value="${username}"></property>
+        <property name="password" value="${password}"></property>
+    </bean>
+
+
+
+    <!-- 搭建spring和mybatis中间的桥梁 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 引用dataSource -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 加载config文件 -->
+        <property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
+
+    </bean>
+
+
+</beans>

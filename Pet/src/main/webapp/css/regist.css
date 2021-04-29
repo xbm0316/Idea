@@ -1,0 +1,44 @@
+.footer{
+    margin-top: 0;
+}
+
+
+
+.registform .w{
+    height: 500px;
+}
+
+.registform .myform{
+     width: 400px;
+    height: 350px;
+    margin: 0 auto;
+
+    margin-top: 100px;
+    box-shadow: 0 0 7px 0.5px rgba(0, 0, 0, 0.15);
+}
+
+.registform .myform h4{
+    text-align: center;
+    height: 30px;
+    
+    font-size: 30px;
+    color: pink;
+    padding-top:20px ;
+    
+}
+
+
+.myform form {
+   padding: 5px 70px;
+}
+
+
+
+.myform form div{
+    margin-top: 20px;
+}
+
+.loginbtn{
+   padding: 0 90px;
+  
+}

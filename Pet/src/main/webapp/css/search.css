@@ -1,0 +1,24 @@
+.search{
+	width: 100%;
+	height: 400px;
+}
+	.searchcenter{
+		width: 50%;
+		height: 500px;
+		
+		margin: 0 auto;
+	}
+		.searchtop{
+			width:50%;
+			height: 50px;
+			margin: 0 auto;
+			margin-top: 30px;
+		}
+		.searchbutton{
+			width:50%;
+			height: 100px;
+			margin: 0 auto;
+			margin-top: 30px;
+			padding-left: 30px;
+			padding-top: 20px;
+		}

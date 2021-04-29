@@ -1,0 +1,148 @@
+
+.main{
+    height: 1000px;
+    background-color: #f6f6f6;
+    margin-top: 10px;
+}
+.main .w{
+    padding-top: 50px;
+    
+    width:80%;
+}
+
+.main .w ul{
+    width: 1250px;
+}
+.main .w ul li{
+    width: 270px;
+    height: 348px;
+    float: left;
+    margin-right: 40px;
+    margin-top: 30px;
+    box-shadow: 0 0 7px 0.5px rgba(0, 0, 0, 0.15);
+}
+
+.productimg img{
+    width: 100%;
+    height: 100%;
+}
+
+.main .w ul li .productimg{
+    position: relative;
+    width: 270px;
+    height: 265px;
+    background-color: coral;
+    border-radius: 2px;
+}
+
+.main .w ul li .productinfo{
+    height: 83px;
+    padding: 17px 10px 16px;
+}
+
+.main .w ul li .productimg .collect{
+   
+    position: absolute;
+    right: 20px;
+    top: 240px;
+    z-index: 2;
+    color: #333;
+}
+
+
+
+.pet_left_top input{
+    background-color: #f6f6f6;
+}
+.main .w ul li .productinfo{
+    height: 83px;
+    padding: 17px 10px 16px;
+}
+
+.main .w ul li .productinfo h4 a{
+
+    text-decoration: none;
+    color: #333;
+}
+
+.main .w ul li .productimg .collect{
+   
+    position: absolute;
+    right: 20px;
+    top: 240px;
+    z-index: 2;
+    color: #333;
+}
+
+.fenpage{
+    margin: 0 auto;
+    text-align: center;
+   	width: 100px;
+   	height: 100px;
+}
+
+.pet_left_top input{
+    background-color: #f6f6f6;
+}
+
+
+
+/* product_info.html */
+.pinfo{
+    padding-bottom: 20px;
+}
+.pinfo .w{
+    height: 500px;
+}
+
+.pinfo .w .left {
+    padding: 10px 10px;
+    width: 500px;
+    height: 500px;
+    float: left;
+    box-shadow: 0 0 3px 0px;
+}
+.pinfo .w .left img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #eeee;
+   
+}
+
+
+
+.pinfo .w .right{
+    width: 700px;
+    height: 500px;
+    float: left;
+    padding: 20px 33px;
+}
+.pinfo .w .right .info{
+    padding: 10px 0;
+    margin-top: 20px;
+    
+    line-height:2em;
+    border-top: 1px solid #333;
+}
+
+.parameter{
+    margin-top: 20px;
+}
+.price{
+    font-size: 20px;
+    color: #5cb85c;
+}
+.num {
+    height: 70px;
+}
+.num span{
+    float: left;
+}
+.num input{
+    float: left;
+   margin-right: 5px;
+}
+.num button{
+    float: left;
+   margin-right: 5px;
+}

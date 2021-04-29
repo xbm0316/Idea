@@ -1,0 +1,147 @@
+a:hover{
+    color: pink;
+    border-bottom: pink 1px solid 10px;
+}
+
+
+.top{
+    width: 100%;
+    height: 50px;
+    background-color:pink;
+}
+.top .center_area{
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+}
+    .top .title{
+        
+        width: 100px;
+        height: 50px;
+        text-align: center;
+        line-height: 100px;
+        position: absolute;
+        color: rgb(231, 216, 218);
+    }
+    .top #select{
+        
+        margin-top: 10px;
+        position: absolute;
+        margin-left: 1000px;
+        margin-top: 10px;
+        background-color: pink;
+        border: none;
+        text-align: center;
+    }
+.nav{
+    width: 100%;
+    height: 120px;
+}
+.nav .nav_center_area{
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+}
+    .nav_center_area .left{
+        margin-top: 10px;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+    }
+    .nav_center_area .center{
+        width: 700px;
+        height: 100px;
+        position: absolute;
+        margin-left: 200px;
+        /* background-color: pink; */
+        margin-top: 10px;
+    }
+        .center li{
+        float: left;
+        }
+        .center span{
+            display:inline-block;
+            width: 100px;
+            height: 100px;
+            text-align: center; 
+            line-height: 100px;
+            margin-left: 40px;
+            font-size: 16px;
+            font-weight: 200px;
+            font-family: "Montserrat", sans-serif;
+            border-radius: 5px;
+            
+             
+            
+        }
+        .center .frist{
+        	background-color: pink;
+        }
+        
+    .nav_center_area .right{
+        width: 250px;
+        height: 50px;
+        position: absolute;
+        margin-left: 950px;
+        margin-top: 50px;
+        /* background-color: black; */
+       
+        
+    }
+    .right li{
+        float: left;
+        padding-left: 30px;
+        font-size: 20px;
+    }
+
+    .a-upload {
+    padding: 4px 10px;
+    height: 30px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+   
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    text-decoration: none
+}
+    #user{
+        position: relative;
+    }
+    #prop{
+        width: 100px;
+        height: 70px;
+        position: absolute;
+        top: 28px;
+        left: -13px;
+        box-shadow: 0 0 7px 0.5px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        z-index: 1;
+        display: none;
+        color: #000;
+    }
+
+    #user:hover #prop{
+        display: block;
+    }
+    

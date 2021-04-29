@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，后面会讲 -->
+<mapper namespace="mapper.UserMapper">
+	
+	<!-- 添加用户 -->
+	<insert id="addUser" parameterType="User">
+		insert into user(id,name,password,phone,address) values(#{id},#{name},#{password},#{phone},#{address})
+	</insert>
+	
+	<!-- 检测登录的用户是否存在 -->
+	<select id="findUserId" parameterType="String" resultType="Integer">
+		select id from user where name = #{name}
+	</select>
+	
+	<!-- 根据id查询到用户信息，然后检查 -->
+	<select id="findUserById" parameterType="Integer" resultType="User">
+		select name,password from user where id = #{id}
+	</select>
+	
+	
+	<!-- 根据类别找到宠物类别 -->
+	<select id="findPet" parameterType="String" resultType="Pet">
+		select imgurl from pet where pet = #{pet}
+	</select>
+	
+	<select id="findPetByCate" parameterType="String" resultType="String">
+		select imgurl from pet where category = #{category}
+	</select>
+	
+	
+	<!-- 根据类别找到产品 -->
+	<select id="findProduct" resultType="Product">
+		select * from product where p_category = #{category} or p_pet = #{category} limit #{start},8
+	</select>
+	
+	
+	<!-- 拿到图片的id找到产品信息 -->
+	<select id="findProductId" parameterType="String" resultType="int">
+		select product_id from product where p_img = #{p_img}
+	</select>
+	
+	
+	<!-- 拿到图片的id找到产品信息 -->
+	<select id="findProductById" parameterType="int" resultType="Product">
+		select * from product where product_id = #{product_id}
+	</select>
+	
+	<!-- 修改用户信息 -->
+	<update id="updateUser" parameterType="User">
+		update user set password = #{password},address = #{address} where id = #{id}
+	</update>
+	
+	<!-- 找到用户 -->
+	<select id="findUser" parameterType="Integer" resultType="User">
+		select * from user where id = #{id}
+	</select>
+	
+	
+	<!-- 添加订单信息 -->
+	<insert id="addOrder" parameterType="Order">
+		insert into orders(order_id,re_name,re_phone,o_money,o_pay,re_address,user_id) values(
+			#{order_id},#{re_name},#{re_phone},#{o_money},#{o_pay},#{re_address},#{user_id}
+		)
+	</insert>
+	
+	
+	<!-- 添加订单详情 -->
+	<insert id="addOrderInfo" parameterType="Order_Info">
+		insert into orders_info(order_id,product_id,buynum) values(#{order_id},#{product_id},#{buynum})
+	</insert>
+	
+	<!-- 根据id找到所属订单 -->
+	<select id="findOrder" resultType="Order">
+		select * from orders where user_id = #{id} and o_pay = 0 limit #{start},2
+	</select>
+	
+	<!-- 找到已经支付的订单 -->
+	<select id="findPayOrder" resultType="Order">
+		select * from orders where user_id = #{id} and o_pay = 1 limit #{start},2
+	</select>
+	
+	<!-- 购买 -->
+	<update id="pay" parameterType="Order">
+		update orders set o_pay = #{o_pay} where order_id = #{order_id}
+	</update>
+	
+	
+	
+</mapper>
