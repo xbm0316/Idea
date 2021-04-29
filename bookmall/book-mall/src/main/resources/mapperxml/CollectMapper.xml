@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gdpi.bookmall.mapper.CollectMapper">
+
+    <insert id="insertCollect">
+        insert into tb_collect(user_id, product) values (#{userId},#{product})
+    </insert>
+
+    <resultMap id="CollectBooksMap" type="cn.gdpi.bookmall.dto.CollectBookDTO">
+        <id property="isbn" column="isbn"/>
+        <result column="title" property="title" />
+        <result column="price" property="price"/>
+        <association property="image" javaType="cn.gdpi.bookmall.pojo.BookImage">
+            <result property="url" column="url"/>
+        </association>
+    </resultMap>
+
+    <select id="selectCollectBooks" resultMap="CollectBooksMap">
+        select  b.isbn, b.title, b.price,bi.url from tb_collect c,tb_book b ,tb_book_image bi where c.product=b.isbn and b.isbn=bi.book_isbn and bi.type=2 and c.user_id=#{phone}
+    </select>
+    <select id="selectCollectBook" resultType="int">
+        select count(1) from tb_collect where product=#{isbn} and user_id=#{phone}
+    </select>
+    <delete id="delectCollect">
+        delete from tb_collect where user_id=#{phone} and product=#{isbn}
+    </delete>
+</mapper>

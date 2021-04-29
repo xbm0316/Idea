@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gdpi.bookmall.mapper.BookMapper">
+
+  <resultMap id="BookMap" type="Book">
+    <id column="isbn" property="isbn"/>
+    <result column="price" property="price"/>
+    <result column="author" property="author"/>
+    <result column="packaging" property="packaging"/>
+    <result column="words" property="words"/>
+    <result column="form" property="form"/>
+    <result column="format" property="format"/>
+    <result column="pages" property="pages"/>
+    <result property="edition" column="edition"/>
+    <result property="press" column="press"/>
+    <result column="title" property="title"/>
+    <collection property="images" ofType="BookImage" column="isbn" select="cn.gdpi.bookmall.mapper.BookImageMapper.selectBookImage">
+    </collection>
+  </resultMap>
+
+  <insert id="insertBook">
+    insert into
+      tb_book(isbn, title, author, price, press,  edition, published, pages, words, packaging, format, form)
+    VALUES (#{isbn},#{title},#{author},#{price},#{press},#{edition},#{published},#{pages},#{words},#{packaging},#{format},#{form})
+  </insert>
+
+  <select id="selectOne" resultMap="BookMap">
+    select isbn, title, author, price, press, edition, published, pages, words, packaging, format, form from tb_book where isbn=#{isbn}
+  </select>
+  <update id="updateBook">
+    update tb_book
+      <trim prefix="set" suffixOverrides=",">
+        <if test="price != null">
+          price=#{price},
+        </if>
+        <if test="title != null and title != ''">
+          title=#{title},
+        </if>
+        <if test="author != null and author != ''">
+          author=#{author},
+        </if>
+        <if test="words != null">
+          words=#{words},
+        </if>
+        <if test="form != null and form != ''">
+          form=#{form},
+        </if>
+        <if test="format != null and format != ''">
+          format=#{format},
+        </if>
+        <if test="edition != null">
+          edition=#{edition},
+        </if>
+        <if test="packaging != null and packaging != ''">
+          packaging=#{packaging},
+        </if>
+        <if test="published != null">
+          published=#{published},
+        </if>
+        <if test="pages != null">
+          pages=#{pages},
+        </if>
+        <if test="press != null and press != ''">
+          press=#{press},
+        </if>
+      </trim>
+    where isbn=#{isbn}
+  </update>
+
+  <resultMap id="ClientIndexBookDTOMap" type="cn.gdpi.bookmall.dto.ClientIndexBookDTO">
+    <id column="isbn" property="isbn"/>
+    <result column="price" property="price"/>
+    <result property="press" column="press"/>
+    <result column="title" property="title"/>
+    <association property="image" javaType="cn.gdpi.bookmall.pojo.BookImage">
+      <result property="url" column="url"/>
+    </association>
+  </resultMap>
+
+  <select id="selectBooksLikeKey" resultMap="ClientIndexBookDTOMap">
+    select b.isbn, b.title, b.price, b.press,bi.url from tb_book b,tb_book_image bi where b.isbn=book_isbn and bi.type=0
+    <if test="key != null and key != ''">
+      <bind name="key" value="'%' + key + '%'"/>
+        and title like #{key} or author like #{key}
+    </if>
+
+  </select>
+  <select id="selectAdminProductListBooks" resultType="cn.gdpi.bookmall.dto.AdminProductListBook">
+    select isbn, title,price,  published from tb_book
+  </select>
+  <resultMap id="RecommendedBookDTOMap" type="cn.gdpi.bookmall.dto.RecommendedBookDTO">
+    <result column="title" property="title"/>
+    <result column="isbn" property="isbn"/>
+    <association property="image" javaType="cn.gdpi.bookmall.pojo.BookImage">
+      <result property="url" column="url"/>
+    </association>
+  </resultMap>
+  <select id="selectrecommendedBooks" resultMap="RecommendedBookDTOMap">
+    select b.isbn, b.title,bi.url from tb_book b,tb_recommended r,tb_book_image bi where b.isbn=r.product and bi.book_isbn=b.isbn and bi.type=3;
+  </select>
+</mapper>

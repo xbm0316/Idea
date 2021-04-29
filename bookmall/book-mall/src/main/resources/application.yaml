@@ -1,0 +1,38 @@
+server:
+  port: 8080
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      password: 19990525
+      username: root
+      #121.36.206.156  LHTlht1999
+      url: jdbc:mysql://localhost:3306/XZSC?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+  resources:
+    static-locations: classpath:static/,file:static/
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+
+mybatis:
+  type-aliases-package: cn.gdpi.bookmall.pojo
+  mapper-locations: classpath:mapperxml/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  config: classpath:logback-spring.xml

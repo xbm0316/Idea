@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gdpi.bookmall.mapper.OrderMapper">
+
+    <insert id="insertOrder">
+        insert into tb_order(user_id, order_id, sta,  payment, placed) values (#{userId},#{orderId},#{sta},#{payment},#{placed})
+    </insert>
+    <insert id="insertOrderItems">
+        insert into tb_order_item(product, price, count, order_id) VALUES
+        <foreach collection="orderItems"  item="item" separator=",">
+            (#{item.product},#{item.price},#{item.count},#{orderId})
+        </foreach>
+    </insert>
+    
+
+    <resultMap id="OrderItemMap" type="OrderItem">
+        <result property="orderId" column="order_id"/>
+        <result column="product" property="product"/>
+        <result column="count" property="count"/>
+        <association property="image" javaType="cn.gdpi.bookmall.pojo.BookImage">
+            <result property="url" column="url"/>
+        </association>
+        <association property="book" javaType="cn.gdpi.bookmall.dto.CartBookDTO">
+            <id column="isbn" property="isbn"/>
+            <result property="price" column="price"/>
+            <result property="author" column="author"/>
+            <result property="press" column="press"/>
+            <result property="title" column="title"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOrderItems" resultMap="OrderItemMap">
+        select
+            oi.product,  oi.count, oi.order_id,bi.url ,b.title,b.press,b.price,b.author,b.isbn
+        from
+        tb_order_item oi,tb_book_image bi, tb_book b
+        where oi.product=bi.book_isbn and b.isbn=bi.book_isbn  and bi.type=3 and order_id=#{orderId}
+    </select>
+
+    <resultMap id="OrderMap" type="Order">
+        <result property="orderId" column="order_id"/>
+        <result column="user_id" property="userId"/>
+        <result property="payment" column="payment"/>
+        <result property="placed" column="placed"/>
+        <result property="deliver" column="deliver"/>
+        <result property="handover" column="handover"/>
+        <result property="sta" column="sta"/>
+        <result property="receipt" column="receipt"/>
+        <association property="address" javaType="cn.gdpi.bookmall.pojo.Address" column="address_id" select="cn.gdpi.bookmall.mapper.AddressMapper.selectAddress">
+        </association>
+       <collection property="orderItems" ofType="cn.gdpi.bookmall.pojo.OrderItem" column="order_id" select="selectOrderItems">
+       </collection>
+    </resultMap>
+
+    <select id="selectOrderOne" resultMap="OrderMap">
+        select user_id, order_id, sta, address_id, payment, placed, receipt, deliver, handover from tb_order where  order_id=#{orderId}
+        <if test="phone != null and phone != ''">
+            and user_id=#{phone}
+        </if>
+    </select>
+
+    <update id="updateOrder">
+        update tb_order
+        <trim prefix="set" suffixOverrides=",">
+            <if test="order.addressId != null">
+                address_id=#{order.addressId},
+            </if>
+            <if test="order.sta != null and order.sta != ''">
+                sta=#{order.sta},
+            </if>
+            <if test="order.receipt != null">
+                receipt=#{order.receipt},
+            </if>
+            <if test="order.deliver != null">
+                deliver=#{order.deliver},
+            </if>
+            <if test="order.handover != null">
+                handover=#{order.handover},
+            </if>
+        </trim>
+        where order_id=#{order.orderId}
+        <if test="phone != null and phone != ''">
+            and user_id=#{phone}
+        </if>
+    </update>
+
+    <select id="selectAdminOrderListDTOList" resultType="cn.gdpi.bookmall.dto.AdminOrderListDTO">
+        select  order_id, sta,  payment, placed from tb_order
+        <if test="sta != null and sta != ''">
+            where sta=#{sta}
+        </if>
+    </select>
+
+    <resultMap id="ClientOrderListDTOMap" type="cn.gdpi.bookmall.dto.ClientOrderListDTO">
+        <result property="receipt" column="receipt"/>
+        <result column="sta" property="sta"/>
+        <result property="orderId" column="order_id"/>
+        <collection property="orderItems" ofType="cn.gdpi.bookmall.pojo.OrderItem" column="order_id" select="selectOrderItems">
+        </collection>
+    </resultMap>
+
+    <select id="selectOrderList" resultMap="ClientOrderListDTOMap">
+        select order_id, sta, receipt from tb_order where user_id=#{phone} ORDER BY placed DESC
+    </select>
+
+
+</mapper>

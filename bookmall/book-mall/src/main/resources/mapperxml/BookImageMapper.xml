@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gdpi.bookmall.mapper.BookImageMapper">
+
+  <insert id="insertBookImage" useGeneratedKeys="true" keyColumn="img_id" keyProperty="imgId">
+        insert into tb_book_image(type, url, book_isbn) values (#{type},#{url},#{bookIsbn})
+  </insert>
+  <select id="selectBookImage" resultType="BookImage">
+      select img_id, type, url, book_isbn from tb_book_image where book_isbn=#{isbn}
+  </select>
+</mapper>
